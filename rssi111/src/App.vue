@@ -1,13 +1,38 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <router-view></router-view>
+
+      <p v-for="mes in message">
+        {{ mes.values }}
+      </p>
+
   </div>
 </template>
 
 <script>
+
+import Hello from './components/Hello'
+import Firebase from 'firebase'
+
+let config = {
+  apiKey: "AIzaSyDqdodpFDQC597bdnTgu9bvVM1wQHSaH0I",
+  authDomain: "rssi-to-web.firebaseapp.com",
+  databaseURL: "https://rssi-to-web.firebaseio.com",
+  projectId: "rssi-to-web",
+  storageBucket: "rssi-to-web.appspot.com",
+  messagingSenderId: "1037979345662"
+}
+
+let app = Firebase.initializeApp(config);
+let db = app.database();
+
+let messageRef = db.ref('message');
+
 export default {
-  name: 'app'
+  name: 'app',
+  firebase: {
+    message: messageRef
+  }
 }
 </script>
 
